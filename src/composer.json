@@ -1,0 +1,25 @@
+{
+    "require": {
+        "twig/twig": "~3.0",
+        "monolog/monolog": "^2.2",
+        "twig/string-extra": "^3.3",
+        "clancats/hydrahon": "^1.1",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.3",
+        "phpmailer/phpmailer": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "App\\": "App/"
+        }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.6",
+        "phpstan/phpstan": "^0.12.89"
+    },
+    "scripts": {
+        "phpcs": "phpcs --standard=../phpcs.xml"
+    }
+}

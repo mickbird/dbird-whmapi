@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		{% block metas %}
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			{% for meta in metas %}
+				<meta{% for key, value in meta %} {{ key }}="{{ value }}"{% endfor %}>
+			{% endfor %}
+		{% endblock %}
+
+		{% block stylesheets %}
+			{% for stylesheet in stylesheets %}
+				<link{% for key, value in stylesheet %} {{ key }}="{{ value }}"{% endfor %}>
+			{% endfor %}
+		{% endblock %}
+
+		<title>{% block title %}{{ title }}{% endblock %}</title>
+	</head>
+
+	<body class="d-flex flex-column min-vh-100">
+		{% block content %}{% endblock %}
+
+		{% block scripts %}
+			{% for script in scripts %}
+				<script{% for key, value in script %} {{ key }}="{{ value }}"{% endfor %}></script>
+			{% endfor %}
+		{% endblock %}
+	</body>
+</html>

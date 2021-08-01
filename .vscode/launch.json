@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [ 
+        {
+            "name": "Debug Built-in web server",
+            "type": "php",
+            "request": "launch",
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+                "--no-header",
+                "--server",
+                "localhost:8000",
+                "index.php"
+            ],
+            "cwd": "${workspaceRoot}/src/public",
+            "port": 9000
+        },
+        {
+            "name": "Run Built-in web server",
+            "type": "php",
+            "request": "launch",
+            "runtimeArgs": [
+                "--no-header",
+                "--server",
+                "localhost:8000",
+                "index.php"
+            ],
+            "cwd": "${workspaceRoot}/src/public"
+        }
+    ]
+}
