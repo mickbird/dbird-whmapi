@@ -158,6 +158,7 @@ class ServerRequest
         ];
 
         $this->supportedContentTypes = [
+            'text/plain' => ['.txt'],
             'text/html' => ['.html', '.htm'],
             'application/json' => ['.json'],
             'application/xml' => ['.xml'],
@@ -187,7 +188,7 @@ class ServerRequest
             }
         }
 
-        throw new \Exception('Unable to detect requested content type', 415);
+        $this->contentType = 'text/plain';
     }
 
     /**

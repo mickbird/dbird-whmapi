@@ -309,7 +309,7 @@ abstract class Controller
             // Get an array containing parameters name as key and null as value
             $method = new ReflectionMethod($this, $methodName);
             $methodParams = $method->getParameters();
-            $methodParams = array_merge(...array_map(fn($x) => [$x->getName() => $x->isOptional() ? $x->getDefaultValue() : null], $methodParams));
+            $methodParams = (array)array_merge(...array_map(fn($x) => [$x->getName() => $x->isOptional() ? $x->getDefaultValue() : null], $methodParams));
             $methodParams = array_change_key_case($methodParams, CASE_LOWER);
 
             // Fill $methodParams values with $_GET and $routeParams
@@ -364,6 +364,10 @@ abstract class Controller
     protected function render() : bool
     {
         switch ($this->getResponse()->getContentType()) {
+            case 'text/plain':
+                $this->renderPlain();
+                return true;
+            
             case 'text/html':
                 $this->renderHtml();
                 return true;
@@ -379,6 +383,20 @@ abstract class Controller
             default:
                 return false;
         }
+    }
+
+    /**
+     * Render the view as Plain text
+     * @return void
+     */
+    protected function renderPlain() : void
+    {
+        $this->autoRender = false;
+
+        $this->beforeRender();
+
+        $this->getResponse()->setContentType('text/plain');
+        $this->getResponse()->setBody(var_export($this->view, true));
     }
 
     /**
