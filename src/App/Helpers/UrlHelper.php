@@ -111,7 +111,7 @@ class UrlHelper
         }
 
         if ($targetRoute !== null) {
-            $url .= _($targetRoute['route']) . $targetRoute['extension'];
+            $url .= $targetRoute['route'] . $targetRoute['extension'];
             $queryString = [];
 
             foreach ($queryFull as $key => $value) {
