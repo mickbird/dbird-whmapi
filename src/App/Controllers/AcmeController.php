@@ -56,8 +56,13 @@ class AcmeController extends AppController
         }
 
 
-        $domain = $this->apiHelper->findZone($json['fqdn']);
-        
+        if (($domain = $this->apiHelper->findZone($json['fqdn'])) === null) {
+            $this->getResponse()
+                ->setBody('nohost');
+            return;
+        }
+
+
         $this->apiHelper->addZoneRecord([
             'domain' => $domain,
             'name' => $json['fqdn'],
@@ -89,7 +94,12 @@ class AcmeController extends AppController
         }
 
 
-        $domain = $this->apiHelper->findZone($json['fqdn']);
+        if (($domain = $this->apiHelper->findZone($json['fqdn'])) === null) {
+            $this->getResponse()
+                ->setBody('nohost');
+            return;
+        }
+        
 
         $records = $this->apiHelper->fetchZone([
             'domain' => $domain,

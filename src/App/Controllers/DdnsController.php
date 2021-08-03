@@ -7,6 +7,8 @@ use App\Config;
 use App\Helpers\CPanelApiHelper;
 use Core\Application;
 
+use function App\Libs\filter_var_typed;
+
 class DdnsController extends AppController
 {
     /*
@@ -40,8 +42,6 @@ class DdnsController extends AppController
 
     public function updateAction(string $hostname, ?string $ip = null) : void
     {
-        $ip ??= $_SERVER['REMOTE_ADDR'];
-
         if (@$_SERVER['PHP_AUTH_USER'] !== $this->config->getCPanelUser() || @$_SERVER['PHP_AUTH_PW'] !== $this->config->getCPanelPass()) {
             $this->getResponse()
                 ->setHeader('WWW-Authenticate', 'Basic realm="oZYXTs3X878r7JD5Jf", charset="UTF-8"')
@@ -51,7 +51,14 @@ class DdnsController extends AppController
         }
 
 
-        $domain = $this->apiHelper->findZone($hostname);
+        if (($domain = $this->apiHelper->findZone($hostname)) === null) {
+            $this->getResponse()
+                ->setBody('nohost');
+            return;
+        }
+
+        $ip ??= $_SERVER['REMOTE_ADDR'];
+        
         
         $records = $this->apiHelper->fetchZone([
             'domain' => $domain,
