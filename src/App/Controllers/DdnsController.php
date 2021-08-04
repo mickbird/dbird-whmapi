@@ -7,8 +7,6 @@ use App\Config;
 use App\Helpers\CPanelApiHelper;
 use Core\Application;
 
-use function App\Libs\filter_var_typed;
-
 class DdnsController extends AppController
 {
     /*
