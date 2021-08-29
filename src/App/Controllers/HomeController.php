@@ -23,7 +23,7 @@ class HomeController extends AppController
     
     public function indexAction() : void
     {
-		$this->set('php_version', phpversion());
+        $this->set('php_version', phpversion());
     }
 
     /*
