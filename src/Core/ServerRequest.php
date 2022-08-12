@@ -315,7 +315,11 @@ class ServerRequest
 
         // Detector for HTTP header HTTP_ACCEPT
         $contentTypeDetectorByHeaderAccept = function () : ?string {
-            $contentTypes = explode(',', @$_SERVER['HTTP_ACCEPT']);
+            if (empty($_SERVER['HTTP_ACCEPT'])) {
+                return null;
+            }
+            
+            $contentTypes = explode(',', $_SERVER['HTTP_ACCEPT']);
 
             foreach ($contentTypes as $contentType) {
                 if (array_key_exists($contentType, $this->supportedContentTypes)) {
